@@ -9,6 +9,7 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { Button } from './ui/button';
 import { TableHeader, TableRow, TableHead, TableBody, TableCell, Table } from './ui/table';
 import EmployeeModal from './EmployeeModal';
+import { Label } from './ui/label';
 
 const EmployeeTable = () => {
     const { push } = useRouter();
@@ -41,9 +42,9 @@ const EmployeeTable = () => {
     // Updating sort functions
     const changeSortBy = (value: string) => {
         if (value == "name" && sortBy == "name") {
-            setSortBy(`${value}-reverse`);
+            setSortBy(`${value}`);
         } else if (value == "hire-date" && sortBy == "hire-date") {
-            setSortBy(`${value}-reverse`);
+            setSortBy(`${value}`);
         } else {
             setSortBy(value);
         }
@@ -130,14 +131,14 @@ const EmployeeTable = () => {
     return (
         <>
             {/* Sort by - Start */}
-            <div className="flex flex-col md:flex-row justify-between items-center mb-4 p-4">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-6 p-4">
                 <div className="flex items-center gap-3 mb-2 md:mb-0">
                     <h2 className="text-2xl font-medium text-gray-700 dark:text-white">Add new hire</h2>
                     <EmployeeModal type="Add" employee={null} refreshEmployees={handleGetEmployees} />
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
-                    <div className="flex items-center">
+                    <div className="flex items-center gap-x-4">
                         <p className="mr-2 text-sm text-gray-600">Sort by:</p>
 
                         <DropdownMenu>
@@ -147,44 +148,74 @@ const EmployeeTable = () => {
                                     {sortBy === "name" ? <FaCaretDown className="ml-2" /> : sortBy === "name-reverse" ? <FaCaretUp className="ml-2" /> : ""}
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuItem onClick={() => changeSortBy("name")}>A-Z</DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => changeSortBy("name-reverse")}>Z-A</DropdownMenuItem>
+                            <DropdownMenuContent className='bg-white border border-black flex z-1 flex-col justify-center items-center'>
+                                <DropdownMenuItem onClick={() => changeSortBy("name")}>
+                                    <Button variant="ghost" className="text-sm rounded-none text-gray-600">
+                                        A-Z
+                                    </Button>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => changeSortBy("name-reverse")}>
+                                    <Button variant="ghost" className="text-sm rounded-none text-gray-600">
+                                        Z-A
+                                    </Button>
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant="outline" className="text-sm text-gray-600 ">
+                                    Hire date
+                                    {sortBy === "hire-date" ? <FaCaretDown className="ml-2" /> : sortBy === "hire-date-reverse" ? <FaCaretUp className="ml-2" /> : ""}
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className='bg-white border z-1 border-black flex flex-col justify-center items-center'>
+                                <DropdownMenuItem onClick={() => changeSortBy("hire-date")}>
+                                    <Button variant="ghost" className="text-sm rounded-none text-gray-600">
+                                        Newest First
+                                    </Button>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => changeSortBy("hire-date-reverse")}>
+                                    <Button variant="ghost" className="text-sm rounded-none text-gray-600">
+                                        Oldest First
+                                    </Button>
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
 
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="outline" className="text-sm text-gray-600">
-                                    Hire date
+                                    Job Title
                                     {sortBy === "hire-date" ? <FaCaretDown className="ml-2" /> : sortBy === "hire-date-reverse" ? <FaCaretUp className="ml-2" /> : ""}
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                                <DropdownMenuItem onClick={() => changeSortBy("hire-date")}>Newest First</DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => changeSortBy("hire-date-reverse")}>Oldest First</DropdownMenuItem>
+                            <DropdownMenuContent className='bg-white border z-1 border-black flex flex-col justify-center items-center'>
+                                <DropdownMenuItem onClick={() => changeSortBy("")}>
+                                    <Button variant="ghost" className="text-sm rounded-none text-gray-600">
+                                    Customer Support
+                                    </Button>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => changeSortBy("")}>
+                                    <Button variant="ghost" className="text-sm rounded-none text-gray-600">
+                                        IT Support Specialist
+                                    </Button>
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => changeSortBy("")}>
+                                    <Button variant="ghost" className="text-sm rounded-none text-gray-600">
+                                        Software Engineer
+                                    </Button>
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
 
-                        <select
-                            className="ml-3 text-sm border rounded p-1"
-                            value={sortBy === "job-title" ? sortByJob : ""}
-                            onChange={changeSortByJob}
-                        >
-                            <option value="" disabled>
-                                Job title
-                            </option>
-                            <option value="Customer Support">Customer Support</option>
-                            <option value="IT Support Specialist">IT Support Specialist</option>
-                            <option value="Software Engineer">Software Engineer</option>
-                        </select>
                     </div>
                 </div>
             </div>
             {/* Sort by - End */}
 
             {/* Display table - Start */}
-            <Table>
+            <Table >
                 <TableHeader>
                     <TableRow>
                         <TableHead className='text-lg'>Employee name</TableHead>

@@ -11,6 +11,7 @@ import { Calendar } from './ui/calendar';
 import { CalendarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 
 
 // Valid values for type: "Add" & "Edit"
@@ -28,9 +29,9 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
     const [token, setToken] = useState('');
 
     const disableBtn =
-        employeeToChange.name.trim() != "" ||
-        employeeToChange.jobTitle.trim() != "" &&
-        employeeToChange.hireDate != "";
+        employeeToChange.name.trim() == "" ||
+        employeeToChange.jobTitle.trim() == "" ||
+        employeeToChange.hireDate == "";
 
     // Modal Functions
     const onOpenModal = () => {
@@ -60,6 +61,14 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
             hireDate: date,
         });
     };
+    const handleEmployeeToChangeJobTitle = (job: string) => {
+        setEmployeeToChange({
+            ...employeeToChange,
+            jobTitle: job,
+        });
+
+    };
+
 
     // Date functions
     const formatDateForInput = (date: string) => {
@@ -156,15 +165,36 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
                                 onChange={handleEmployeeToChange}
                             />
                         </div>
-                        <div>
+                        <div className={`${type === 'Add' ? '' : 'hidden'}`}>
+                            {/* Add turnery condition so if the edit is active the input for job title is disabled */}
+                            {/* Add employee button needs to be enabled */}
                             <div className="mb-2 block">
                                 <Label htmlFor="jobTitle">Job title</Label>
                             </div>
-                            <Input
-                                id="jobTitle"
-                                value={employeeToChange.jobTitle}
-                                onChange={handleEmployeeToChange}
-                            />
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="outline" value={employeeToChange.jobTitle} className="text-sm text-gray-600">
+                                        {employeeToChange.jobTitle || "Job Title"}
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className='bg-white border z-50 border-black flex flex-col justify-center items-center'>
+                                    <DropdownMenuItem >
+                                        <Button variant="ghost" onClick={() => handleEmployeeToChangeJobTitle("Customer Support")} className="text-sm rounded-none text-gray-600">
+                                            Customer Support
+                                        </Button>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem >
+                                        <Button variant="ghost" onClick={() => handleEmployeeToChangeJobTitle("IT Support Specialist")} className="text-sm rounded-none text-gray-600">
+                                            IT Support Specialist
+                                        </Button>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem >
+                                        <Button variant="ghost" onClick={() => handleEmployeeToChangeJobTitle("Software Engineer")} className="text-sm rounded-none text-gray-600">
+                                            Software Engineer
+                                        </Button>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
                     </div>
                     <div>
