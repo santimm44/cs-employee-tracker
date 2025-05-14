@@ -7,9 +7,10 @@ interface LoginContext {
     setIsLoggedIn: (bool: boolean) => void;
 }
 
+//may be correct format for creating context
 const LoginContext = createContext<LoginContext>({
     isLoggedIn: false,
-    setIsLoggedIn: (bool: boolean) => '',
+    setIsLoggedIn: () => {}
 });
 
 export const LoginProvider = ({ children }: { children: React.ReactNode }) => {
@@ -21,7 +22,7 @@ export const LoginProvider = ({ children }: { children: React.ReactNode }) => {
 
             if(localStorage.getItem('user')) loggedIn = true;
             if(sessionStorage.getItem('user')) loggedIn = true;
-        
+
             setIsLoggedIn(loggedIn);
         }
 
@@ -29,7 +30,9 @@ export const LoginProvider = ({ children }: { children: React.ReactNode }) => {
     }, [])
 
     return (
-        <LoginContext.Provider value={ { isLoggedIn, setIsLoggedIn } } />
+        <LoginContext.Provider value={ { isLoggedIn, setIsLoggedIn } }>
+            {children}
+        </LoginContext.Provider>
     )
 }
 

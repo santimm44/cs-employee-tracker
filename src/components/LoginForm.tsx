@@ -25,7 +25,7 @@ const LoginForm = () => {
     const changeUser = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUser({
             ...user,
-            [event.target.id]: '',
+            [event.target.id]: event.target.value.trim(),
         });
 
         if (loginError) {
@@ -126,7 +126,8 @@ const LoginForm = () => {
                 />
                 <Label htmlFor="remember">Remember me</Label>
             </div>
-            <Button onClick={handleLogin} disabled={!inputsFilled || loggingIn}>
+            <Button onClick={handleLogin}
+            disabled={!inputsFilled || loggingIn} className='cursor-pointer'>
                 {loggingIn ? (
                     <>
                         <AiOutlineLoading className="h-6 w-6 animate-spin mr-3" />
@@ -137,7 +138,7 @@ const LoginForm = () => {
                 )}
             </Button>
             <div className="flex w-75">
-                <p>Don't have an account?</p>
+                <p>Don&apos;t have an account?</p>
                 <Link href="/create-account" className="ml-2 text-blue-700 hover:underline">
                     Create one here :&#41;
                 </Link>

@@ -34,8 +34,9 @@ const login = async (loginInfo: AuthInfo, rememberMe: boolean) => {
     return data;
 }
 
+//When creating user the user can enter an email without the '@' or '.com'
 const createUser = async (user: AuthInfo) => {
-    const response = await fetch(`${baseURL}Login`, {
+    const response = await fetch(`${baseURL}CreateUser`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

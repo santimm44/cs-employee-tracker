@@ -93,7 +93,7 @@ const EmployeeTable = () => {
 
     // Sorting the employees
     useEffect(() => {
-        const sortingEmployees = employees;
+        const sortingEmployees = [...employees];
 
         const handleSorting = () => {
             switch (sortBy) {

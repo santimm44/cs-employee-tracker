@@ -1,5 +1,4 @@
 'use client'
-
 import { Employee } from '@/lib/interfaces/interfaces'
 import { addEmployee, updateEmployee } from '@/lib/services/employee-service';
 import React, { useEffect, useState } from 'react'
@@ -126,7 +125,7 @@ const EmployeeModal = ({ type, employee, refreshEmployees }: { type: 'Add' | 'Ed
 
 
     return (
-        <Dialog >
+        <Dialog open={openModal} onOpenChange={setOpenModal} >
             <DialogTrigger asChild>
                 {/* <Button variant="outline">Edit Profile</Button> */}
                 <Button
