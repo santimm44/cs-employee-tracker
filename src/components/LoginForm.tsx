@@ -1,6 +1,6 @@
 'use client'
 
-import { useAppContext } from '@/lib/context/context';
+import { UseAppContext } from '@/lib/context/context';
 import { login } from '@/lib/services/user-services';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
@@ -13,7 +13,7 @@ import Link from 'next/link';
 
 const LoginForm = () => {
     const { push } = useRouter();
-    const { isLoggedIn, setIsLoggedIn } = useAppContext();
+    const { isLoggedIn, setIsLoggedIn } = UseAppContext();
 
     const [user, setUser] = useState({ email: "", password: "" });
     const [rememberMe, setRememberMe] = useState(false);

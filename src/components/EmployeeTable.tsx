@@ -9,12 +9,12 @@ import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { Button } from './ui/button';
 import { TableHeader, TableRow, TableHead, TableBody, TableCell, Table } from './ui/table';
 import EmployeeModal from './EmployeeModal';
-import { useAppContext } from '@/lib/context/context';
+import { UseAppContext } from '@/lib/context/context';
 
 const EmployeeTable = () => {
     const { push } = useRouter();
 
-    const { setEmployeeId } = useAppContext();
+    const { setEmployeeId } = UseAppContext();
 
     // useStates
     const [employees, setEmployees] = useState<Employee[]>([]);
@@ -56,10 +56,10 @@ const EmployeeTable = () => {
         }
     };
 
-    const changeSortByJob = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const changeSortByJob = (value:string) => {
         setSortBy("job-title");
 
-        setSortByJob(e.target.value);
+        setSortByJob(value);
     };
 
     // Delete employee
@@ -199,17 +199,17 @@ const EmployeeTable = () => {
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent className='bg-white border z-1 border-black flex flex-col justify-center items-center'>
-                                <DropdownMenuItem onClick={() => changeSortBy("")}>
+                                <DropdownMenuItem onClick={() => changeSortByJob("Customer Support")}>
                                     <Button variant="ghost" className="text-sm rounded-none text-gray-600">
                                     Customer Support
                                     </Button>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => changeSortBy("")}>
+                                <DropdownMenuItem onClick={() => changeSortByJob("IT Support Specialist")}>
                                     <Button variant="ghost" className="text-sm rounded-none text-gray-600">
                                         IT Support Specialist
                                     </Button>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => changeSortBy("")}>
+                                <DropdownMenuItem onClick={() => changeSortByJob("Software Engineer")}>
                                     <Button variant="ghost" className="text-sm rounded-none text-gray-600">
                                         Software Engineer
                                     </Button>

@@ -3,13 +3,13 @@
 import EmployeeEditView from '@/components/EmployeeEditView';
 import EmployeeView from '@/components/EmployeeView';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAppContext } from '@/lib/context/context'
+import { UseAppContext } from '@/lib/context/context'
 import { Employee } from '@/lib/interfaces/interfaces';
 import { getEmployeeById } from '@/lib/services/employee-service';
 import React, { useEffect, useState } from 'react'
 
-const page = () => {
-    const { employeeId } = useAppContext();
+const Page = () => {
+    const { employeeId } = UseAppContext();
 
     const [employee, setEmployee] = useState<Employee | null>(null);
     const [token, setToken] = useState('');
@@ -67,4 +67,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

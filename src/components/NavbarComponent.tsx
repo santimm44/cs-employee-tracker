@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { useAppContext } from '@/lib/context/context';
+import { UseAppContext } from '@/lib/context/context';
 import { useRouter } from 'next/navigation';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './ui/dropdown-menu';
 
 const NavbarComponent = () => {
-    const { isLoggedIn, setIsLoggedIn } = useAppContext();
+    const { isLoggedIn, setIsLoggedIn } = UseAppContext();
 
     const { push } = useRouter();
 
